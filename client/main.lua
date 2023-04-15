@@ -2,7 +2,7 @@ if not lib then return error("ox_lib not loaded", 2) end
 
 lib.locale()
 
-local playerIdentity, p, moment <const> = nil, nil, exports['supv_convert-unix']
+local playerIdentity, moment <const> = nil, exports['supv_convert-unix']
 
 local function FirstToUpper(str)
     str = str:lower()
@@ -34,12 +34,10 @@ local function OpenRegister(needReset)
         firstname = #input[2] > 1 and FirstToUpper(input[2]),
         sex = input[3],
         height = input[4],
-        dateofbirth = (input[5])
+        dateofbirth = input[5]
     }
 
     if not playerIdentity.lastname or not playerIdentity.firstname then OpenRegister() end
-
-    p = promise.new()
 
     playerIdentity.dateofbirth = moment:ConvertUnixTime(playerIdentity.dateofbirth, Config.format_date)
 
