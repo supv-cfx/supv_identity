@@ -3,6 +3,9 @@ local playerIdentity, alreadyRegistered = {}, {}
 -- assert(os.setlocale('fr_FR')) -- not need this for now
 if ESX and ESX.GetConfig().Multichar then return error("This script isn't available now with multichar", 2) end
 
+local server <const> = require 'config.server'
+local shared <const> = require 'config.shared'
+
 local function SetIdentity(xPlayer, saveDatabase)
     if not alreadyRegistered[xPlayer.identifier] then return end
     local identity = playerIdentity[xPlayer.identifier] or false
@@ -90,7 +93,7 @@ RegisterNetEvent('supv_identity:server:validRegister', function(identity)
     local xPlayer = ESX.GetPlayerFromId(_source)
 
     if xPlayer then
-        local bypass = false for i = 1, #Config.command.authorized do if Config.command.authorized[i] == xPlayer.group then bypass = true end end
+        local bypass = false for i = 1, #server.command.authorized do if server.command.authorized[i] == xPlayer.group then bypass = true end end
         if not bypass and alreadyRegistered[xPlayer.identifier] then return xPlayer.kick("You are already registered! (cheat!)") end
         
         playerIdentity[xPlayer.identifier] = {
@@ -104,7 +107,7 @@ RegisterNetEvent('supv_identity:server:validRegister', function(identity)
         local year, reset = playerIdentity[xPlayer.identifier].dateofbirth:gsub('../../', ''), {}
         year = tonumber(year)
         
-        if (year < Config.dob.min) or year > Config.dob.max then
+        if (year < shared.dob.min) or (year > shared.dob.max) then
             reset.dateofbirth = true
         end
 

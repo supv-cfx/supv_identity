@@ -3,6 +3,7 @@ if not lib then return error("ox_lib not loaded", 2) end
 lib.locale()
 
 local playerIdentity, moment <const> = nil, exports['supv_convert-unix']
+local shared <const> = require 'config.shared'
 
 local function FirstToUpper(str)
     str = str:lower()
@@ -23,8 +24,8 @@ local function OpenRegister(needReset)
         {type = 'input', label = locale('lastname'), required = true, default = playerIdentity.lastname},
         {type = 'input', label = locale('firstname'), required = true, default = playerIdentity.firstname},
         {type = 'select', label = locale('sex'), required = true, options = {{value = 'M', label = locale('male')}, {value = 'F', label = locale('female')}}, default = playerIdentity.sex},
-        {type = 'slider', label = locale('height'), required = true, min = Config.height.min, max = Config.height.max, default = playerIdentity.height},
-        {type = 'date', label = locale('dob'), required = true, icon = {'far', 'calendar'}, format = Config.format_date, default = playerIdentity.dob}
+        {type = 'slider', label = locale('height'), required = true, min = shared.height.min, max = shared.height.max, default = playerIdentity.height},
+        {type = 'date', label = locale('dob'), required = true, icon = {'far', 'calendar'}, format = shared.format_date, default = playerIdentity.dob}
     }, {allowCancel = false})
 
     if not input then OpenRegister() end
@@ -39,7 +40,7 @@ local function OpenRegister(needReset)
 
     if not playerIdentity.lastname or not playerIdentity.firstname then OpenRegister() end
 
-    playerIdentity.dateofbirth = moment:ConvertUnixTime(playerIdentity.dateofbirth, Config.format_date)
+    playerIdentity.dateofbirth = moment:ConvertUnixTime(playerIdentity.dateofbirth, shared.format_date)
 
     if playerIdentity.dateofbirth and type(playerIdentity.dateofbirth) == 'string' then
         TriggerServerEvent('supv_identity:server:validRegister', playerIdentity)
