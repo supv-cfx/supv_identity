@@ -24,7 +24,7 @@ local function OpenRegister(needReset)
         {type = 'input', label = locale('firstname'), required = true, default = playerIdentity.firstname},
         {type = 'select', label = locale('sex'), required = true, options = {{value = 'M', label = locale('male')}, {value = 'F', label = locale('female')}}, default = playerIdentity.sex},
         {type = 'slider', label = locale('height'), required = true, min = 120, max = 220, default = playerIdentity.height},
-        {type = 'date', label = locale('dob'), required = true, icon = {'far', 'calendar'}, format = Config.formatDate, default = playerIdentity.dob}
+        {type = 'date', label = locale('dob'), required = true, icon = {'far', 'calendar'}, format = Config.format_date, default = playerIdentity.dob}
     }, {allowCancel = false})
 
     if not input then OpenRegister() end
