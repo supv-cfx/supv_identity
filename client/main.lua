@@ -2,16 +2,7 @@ if not lib then return error("ox_lib not loaded", 2) end
 
 lib.locale()
 
-local playerIdentity, Await <const>, p = nil, Citizen.Await, nil
-
-local function ConvertUnix(timeUnix)
-    SendNUIMessage({
-        action = "convertUnix",
-        unix = timeUnix,
-        format_date = Config.format_date
-    })
-    return Await(p)
-end
+local playerIdentity, p, moment <const> = nil, nil, exports['supv_convert-unix']
 
 local function FirstToUpper(str)
     str = str:lower()
@@ -50,18 +41,12 @@ local function OpenRegister(needReset)
 
     p = promise.new()
 
-    playerIdentity.dateofbirth = ConvertUnix(playerIdentity.dateofbirth)
+    playerIdentity.dateofbirth = moment:ConvertUnixTime(playerIdentity.dateofbirth, Config.format_date)
 
-    TriggerServerEvent('supv_identity:server:validRegister', playerIdentity)
-end
-
-
-RegisterNUICallback('returnDate', function(value, cb)
-    if p then
-        p:resolve(value)
+    if playerIdentity.dateofbirth and type(playerIdentity.dateofbirth) == 'string' then
+        TriggerServerEvent('supv_identity:server:validRegister', playerIdentity)
     end
-    p = nil
-end)
+end
 
 RegisterNetEvent('supv_identity:client:showRegister', OpenRegister)
 RegisterNetEvent('supv_identity:client:setPlayerData', function(identity)

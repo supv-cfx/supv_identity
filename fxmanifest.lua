@@ -5,7 +5,7 @@ use_experimental_fxv2_oal 'yes'
 
 author 'SUP2Ak#3755'
 description 'A simple identity creator with ox_lib input dialog'
-version '1.0'
+version '1.1'
 
 shared_scripts {
     '@ox_lib/init.lua',
@@ -28,9 +28,10 @@ files {
     'locales/*.json'
 }
 
-ui_page 'web/ui.html'
-
-files {
-    'web/ui.html',
-    'web/js/*.js',
+depandencies {
+    '/onesync',
+    'oxmysql',
+    'ox_lib',
+    'es_extended',
+    'supv_convert-unix'
 }
