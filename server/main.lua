@@ -114,6 +114,10 @@ RegisterNetEvent('supv_identity:server:validRegister', function(identity)
         if next(reset) then
             return TriggerClientEvent('supv_identity:client:showRegister', xPlayer.source, reset)
         end
+
+        if GetResourceState('illenium-appearance') ~= 'missing' then
+            TriggerClientEvent('esx_skin:resetFirstSpawn', xPlayer.source)
+        end
     
         alreadyRegistered[xPlayer.identifier] = true
         SetIdentity(xPlayer, true)
