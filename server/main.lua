@@ -16,7 +16,7 @@ local function SetIdentity(xPlayer, saveDatabase)
     xPlayer.set('sex', identity.sex)
     xPlayer.set('height', identity.height)
     
-    TriggerClientEvent('supv_identity:client:setPlayerData', xPlayer.source, identity)
+    TriggerClientEvent('supv_identity:client:setPlayerData', xPlayer.source, identity, saveDatabase)
 
     if saveDatabase then
         local update <const> = MySQL.update.await('UPDATE users SET firstname = ?, lastname = ?, dateofbirth = ?, sex = ?, height = ? WHERE identifier = ?', {identity.firstname, identity.lastname, identity.dateofbirth, identity.sex, identity.height, xPlayer.identifier})
@@ -107,7 +107,7 @@ RegisterNetEvent('supv_identity:server:validRegister', function(identity)
         local year, reset = playerIdentity[xPlayer.identifier].dateofbirth:gsub('../../', ''), {}
         year = tonumber(year)
         
-        if (year < shared.dob.min) or (year > shared.dob.max)then
+        if (year < shared.dob.min) or (year > shared.dob.max) then
             reset.dateofbirth = true
         end
 

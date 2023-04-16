@@ -48,7 +48,7 @@ local function OpenRegister(needReset)
 end
 
 RegisterNetEvent('supv_identity:client:showRegister', OpenRegister)
-RegisterNetEvent('supv_identity:client:setPlayerData', function(identity)
+RegisterNetEvent('supv_identity:client:setPlayerData', function(identity, isNew)
     ESX.SetPlayerData('name', ('%s %s'):format(identity.firstname, identity.lastname))
     ESX.SetPlayerData('firstname', identity.firstname)
     ESX.SetPlayerData('lastname', identity.lastname)
@@ -58,7 +58,9 @@ RegisterNetEvent('supv_identity:client:setPlayerData', function(identity)
 
     if GetResourceState('illenium-appearance') ~= 'missing' then
         TriggerEvent('esx_skin:playerRegistered')
-        TriggerEvent('esx_skin:openSaveableMenu')
+        if isNew then
+            TriggerEvent('esx_skin:openSaveableMenu')
+        end
     else
         TriggerEvent('esx_skin:playerRegistered')
     end
