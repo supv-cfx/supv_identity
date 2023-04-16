@@ -107,7 +107,7 @@ RegisterNetEvent('supv_identity:server:validRegister', function(identity)
         local year, reset = playerIdentity[xPlayer.identifier].dateofbirth:gsub('../../', ''), {}
         year = tonumber(year)
         
-        if (year < shared.dob.min) or (year > shared.dob.max) then
+        if (year < shared.dob.min) or (year > shared.dob.max)then
             reset.dateofbirth = true
         end
 

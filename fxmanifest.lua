@@ -5,7 +5,7 @@ use_experimental_fxv2_oal 'yes'
 
 author 'SUP2Ak#3755'
 description 'A simple identity creator with ox_lib input dialog'
-version '1.2'
+version '1.3'
 
 files {
     'config/shared.lua',

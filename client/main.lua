@@ -56,7 +56,12 @@ RegisterNetEvent('supv_identity:client:setPlayerData', function(identity)
     ESX.SetPlayerData('sex', identity.sex)
     ESX.SetPlayerData('height', identity.height)
 
-    TriggerEvent('esx_skin:playerRegistered') -- event: for init skin of your player
+    if GetResourceState('illenium-appearance') ~= 'missing' then
+        TriggerEvent('esx_skin:playerRegistered')
+        TriggerEvent('esx_skin:openSaveableMenu')
+    else
+        TriggerEvent('esx_skin:playerRegistered')
+    end
 
     playerIdentity = nil
 end)
