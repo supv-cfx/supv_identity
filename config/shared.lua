@@ -9,5 +9,7 @@ return {
     dob = {
         min = 1920,
         max = 2005
-    }
+    },
+
+    appearance = GetResourceState('illenium-appearance') ~= 'missing' and 'illenium-appearance' -- be logic pls...
 }

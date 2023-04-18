@@ -50,13 +50,13 @@ end
 RegisterNetEvent('supv_identity:client:showRegister', OpenRegister)
 RegisterNetEvent('supv_identity:client:setPlayerData', function(identity, isNew)
     ESX.SetPlayerData('name', ('%s %s'):format(identity.firstname, identity.lastname))
-    ESX.SetPlayerData('firstname', identity.firstname)
-    ESX.SetPlayerData('lastname', identity.lastname)
+    ESX.SetPlayerData('firstName', identity.firstname)
+    ESX.SetPlayerData('lastName', identity.lastname)
     ESX.SetPlayerData('dateofbirth', identity.dateofbirth)
     ESX.SetPlayerData('sex', identity.sex)
     ESX.SetPlayerData('height', identity.height)
 
-    if GetResourceState('illenium-appearance') ~= 'missing' then
+    if shared.appearance then
         TriggerEvent('esx_skin:playerRegistered')
         if isNew then
             TriggerEvent('esx_skin:openSaveableMenu')

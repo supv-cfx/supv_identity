@@ -1,7 +1,48 @@
-local playerIdentity, alreadyRegistered = {}, {}
-
 -- assert(os.setlocale('fr_FR')) -- not need this for now
 if ESX and ESX.GetConfig().Multichar then return error("This script isn't available now with multichar", 2) end
+
+local playerIdentity, alreadyRegistered = {}, {}
+
+MySQL.ready(function()
+    local users <const> = MySQL.query.await("SHOW COLUMNS FROM users")
+    if users ~= '[]' then
+        local t = {}
+        local queries = {}
+        for i = 1, #users do
+            local r = users[i]
+            if r.Field == 'firstname' then
+                t.firstname = true
+            elseif r.Field == 'lastname' then
+                t.lastname = true
+            elseif r.Field == 'sex' then
+                t.sex = true
+            elseif r.Field == 'height' then
+                t.height = true
+            elseif r.Field == 'dateofbirth' then
+                t.dateofbirth = true
+            end
+        end
+
+        if not t.firstname then queries[#queries+1] = {query = 'ALTER TABLE `users` ADD COLUMN `firstname` varchar(20) DEFAULT NULL'} end
+        if not t.lastname then queries[#queries+1] = {query = 'ALTER TABLE `users` ADD COLUMN `lastname` varchar(20) DEFAULT NULL'} end
+        if not t.sex then queries[#queries+1] = {query = 'ALTER TABLE `users` ADD COLUMN `sex` varchar(2) DEFAULT NULL'} end
+        if not t.height then queries[#queries+1] = {query = 'ALTER TABLE `users` ADD COLUMN `height` int(11) DEFAULT NULL'} end
+        if not t.dateofbirth then queries[#queries+1] = {query = 'ALTER TABLE `users` ADD COLUMN `dateofbirth` varchar(15) DEFAULT NULL'} end
+
+        if #queries < 1 then
+            t, queries = nil, nil
+            return
+        end
+
+        local success = MySQL.transaction.await(queries)
+        if success then
+            print("Information in your database created!")
+        else
+            error("You havn't column required in your database... error sql request")
+        end
+        t, queries = nil, nil
+    end
+end)
 
 local server <const> = require 'config.server'
 local shared <const> = require 'config.shared'
@@ -10,8 +51,8 @@ local function SetIdentity(xPlayer, saveDatabase)
     if not alreadyRegistered[xPlayer.identifier] then return end
     local identity = playerIdentity[xPlayer.identifier] or false
     xPlayer.setName(('%s %s'):format(identity.firstname, identity.lastname))
-    xPlayer.set('firstname', identity.firstname)
-    xPlayer.set('lastname', identity.lastname)
+    xPlayer.set('firstName', identity.firstname)
+    xPlayer.set('lastName', identity.lastname)
     xPlayer.set('dateofbirth', identity.dateofbirth)
     xPlayer.set('sex', identity.sex)
     xPlayer.set('height', identity.height)
@@ -30,7 +71,7 @@ end
 
 local function CheckIdentity(xPlayer)
     local result = MySQL.single.await('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = ?', {xPlayer.identifier})
-    if not result or #result.firstname < 2 or #result.lastname < 2 or result.dateofbirth == '' or #result.sex < 1 or result.height < 120 then
+    if not result or not result.firstname or not result.firstname or not result.sex or not result.height or not result.dateofbirth then
         alreadyRegistered[xPlayer.identifier] = false
         return false
     end
@@ -52,7 +93,7 @@ AddEventHandler('playerConnecting', function(playerName, setKickReason, deferral
     local _source = source
     local identifier = ESX.GetIdentifier(_source)
     local result = MySQL.single.await('SELECT firstname, lastname, dateofbirth, sex, height FROM users WHERE identifier = ?', {identifier})
-    if not result or #result.firstname < 2 or #result.lastname < 2 or result.dateofbirth == '' or #result.sex < 1 or result.height < 120 then
+    if not result or not result.firstname or not result.firstname or not result.sex or not result.height or not result.dateofbirth then
         alreadyRegistered[identifier] = false
         return deferrals.done()
     end
@@ -115,7 +156,7 @@ RegisterNetEvent('supv_identity:server:validRegister', function(identity)
             return TriggerClientEvent('supv_identity:client:showRegister', xPlayer.source, reset)
         end
 
-        if GetResourceState('illenium-appearance') ~= 'missing' then
+        if shared.appearance then
             TriggerClientEvent('esx_skin:resetFirstSpawn', xPlayer.source)
         end
     
@@ -129,8 +170,8 @@ RegisterNetEvent('esx:playerLoaded', function(playerId, xPlayer)
 
     if identity and alreadyRegistered[xPlayer.identifier] then
         xPlayer.setName(('%s %s'):format(identity.firstname, identity.lastname))
-        xPlayer.set('firstname', identity.firstname)
-        xPlayer.set('lastname', identity.lastname)
+        xPlayer.set('firstName', identity.firstname)
+        xPlayer.set('lastName', identity.lastname)
         xPlayer.set('dateofbirth', identity.dateofbirth)
         xPlayer.set('sex', identity.sex)
         xPlayer.set('height', identity.height)
