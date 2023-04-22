@@ -11,9 +11,7 @@
   - [esx_core](https://github.com/esx-framework/esx_core)
   - [supv_convert-unix](https://github.com/SUP2Ak/supv_convert-unix)
 - Option :
-  - [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) ou
-  - [skinchanger](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/skinchanger)
-  - [esx_skin](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/esx_skin)
+  - [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) **ou** [skinchanger](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/skinchanger) + [esx_skin](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/esx_skin)
 
 ____
 
@@ -28,6 +26,4 @@ ____
   - [esx_core](https://github.com/esx-framework/esx_core)
   - [supv_convert-unix](https://github.com/SUP2Ak/supv_convert-unix)
 - Optional :
-  - [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) or
-  - [skinchanger](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/skinchanger)
-  - [esx_skin](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/esx_skin)
+  - [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) **or** [skinchanger](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/skinchanger) + [esx_skin](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/esx_skin)
