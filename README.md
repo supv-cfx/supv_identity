@@ -6,12 +6,14 @@
 **Ce script créer automatiquement les colonnes nécessaire dans votre sql table `users`**
 
 - Requis :
-  - [ox_lib]()
-  - [esx_core]()
+  - [ox_lib](https://github.com/overextended/ox_lib)
+  - [esx_core](https://github.com/esx-framework/esx_core)
 - Option :
-  - [illenium-appareance]() ou
-  - [skinchanger]()
-  - [esx_skin]()
+  - [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) ou
+  - [skinchanger](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/skinchanger)
+  - [esx_skin](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/esx_skin)
+
+____
 
 :uk:
 
@@ -19,9 +21,9 @@
 **This script created columns sql in `users` auto**
  
 - Requirement :
-  - [ox_lib]()
-  - [esx_core]()
+  - [ox_lib](https://github.com/overextended/ox_lib)
+  - [esx_core](https://github.com/esx-framework/esx_core)
 - Optional :
-  - [illenium-appareance]() ou
-  - [skinchanger]()
-  - [esx_skin]()
+  - [illenium-appearance](https://github.com/iLLeniumStudios/illenium-appearance) or
+  - [skinchanger](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/skinchanger)
+  - [esx_skin](https://github.com/esx-framework/esx_core/tree/main/%5Bcore%5D/esx_skin)
