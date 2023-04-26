@@ -2,8 +2,10 @@ if not lib then return error("ox_lib not loaded", 2) end
 
 lib.locale()
 
-local playerIdentity, moment <const> = nil, exports['supv_convert-unix']
+local playerIdentity = nil
 local shared <const> = require 'config.shared'
+
+local moment <const> = not supv and exports['supv_convert-unix']
 
 local function FirstToUpper(str)
     str = str:lower()
@@ -40,7 +42,7 @@ local function OpenRegister(needReset)
 
     if not playerIdentity.lastname or not playerIdentity.firstname then OpenRegister() end
 
-    playerIdentity.dateofbirth = moment:ConvertUnixTime(playerIdentity.dateofbirth, shared.format_date)
+    playerIdentity.dateofbirth = moment and moment(playerIdentity.dateofbirth, shared.format_date) or supv.convertUnixTime(playerIdentity.dateofbirth, shared.format_date)
 
     if playerIdentity.dateofbirth and type(playerIdentity.dateofbirth) == 'string' then
         TriggerServerEvent('supv_identity:server:validRegister', playerIdentity)
