@@ -42,7 +42,7 @@ local function OpenRegister(needReset)
 
     if not playerIdentity.lastname or not playerIdentity.firstname then OpenRegister() end
 
-    playerIdentity.dateofbirth = moment and moment(playerIdentity.dateofbirth, shared.format_date) or supv.convertUnixTime(playerIdentity.dateofbirth, shared.format_date)
+    playerIdentity.dateofbirth = moment and moment:ConvertUnixTime(playerIdentity.dateofbirth, shared.format_date) or supv.convertUnixTime(playerIdentity.dateofbirth, shared.format_date)
 
     if playerIdentity.dateofbirth and type(playerIdentity.dateofbirth) == 'string' then
         TriggerServerEvent('supv_identity:server:validRegister', playerIdentity)
