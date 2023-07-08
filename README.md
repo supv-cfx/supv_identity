@@ -1,5 +1,7 @@
 # supv_identity
 
+![GitHub all releases](https://img.shields.io/github/downloads/SUP2Ak/supv_identity/total?color=%2329c785&style=for-the-badge)
+
 :fr:
 
 **Ce script n'est pas compatible avec esx_multichar sans modification du code source (vous pouvez faire une pull request si vous le rendez compatible)**
